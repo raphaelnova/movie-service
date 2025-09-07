@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: movie-service
+  profiles:
+    default: dev
+  neo4j:
+    uri: bolt://localhost:7687
+    authentication:
+      username: neo4j
+      password: secret2025
+    connection-timeout: 5s
+    max-transaction-retry-time: 5s
+
+server:
+  port: 8080

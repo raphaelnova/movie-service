@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "info.raphaelnova.movieservice.generated.proto";
+option java_outer_classname = "MovieGraphProto";
+
+service MovieGraph {
+  rpc GetMovieByTitle(MovieRequest) returns (MovieReply) {}
+}
+
+message MovieRequest {
+  string title = 1;
+}
+
+message MovieReply {
+  int64 id = 1;
+  string title = 2;
+  string tagline = 3;
+  int32 released = 4;
+  repeated Roles actors_and_roles = 5;
+  repeated Person directors = 6;
+}
+
+message Person {
+  int64 id = 1;
+  int32 born = 2;
+  string name = 3;
+}
+
+message Roles {
+  int64 id = 1;
+  Person actor = 2;
+  repeated string roles = 3;
+}

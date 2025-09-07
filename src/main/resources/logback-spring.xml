@@ -1,0 +1,31 @@
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <timestamp>
+                <fieldName>timestamp</fieldName>
+                <pattern>yyyy-MM-dd HH:mm:ss.SSS</pattern>
+            </timestamp>
+            <!-- All MDC fields (from Slf4j MDC, which will be automatically restored from Reactor Context) -->
+            <mdc/>
+            <pattern>
+                <pattern>%clr(%date{HH:mm:ss.SSS}){faint} %clr(%-5level) %clr([${PID:-}:%thread]){faint} %cyan(%logger{50}) -- %msg -- [%mdc]%n%ex</pattern>
+            </pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.apache" level="ERROR"/>
+    <logger name="info.raphaelnova" level="DEBUG"/>
+    <!-- Mono#log and Flux#log use level INFO -->
+    <logger name="reactor.Mono" level="WARN"/>
+    <logger name="reactor.Flux" level="WARN"/>
+    <!-- Set DEBUG to log Neo4j queries: -->
+    <logger name="org.neo4j.driver.org.neo4j.bolt.connection.netty.impl.async.outbound.OutboundMessageHandler" level="WARN"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>
